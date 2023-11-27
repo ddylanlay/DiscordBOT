@@ -19,3 +19,14 @@ function readyDiscord()
 client.login(process.env.TOKEN); // login to discord with token
 client.once(Events.ClientReady, readyDiscord); //turns bot on [indicated by green dot in server]
 
+
+
+
+//Setup specific command to work in discord
+async function handleInteraction(interaction) {
+    if (!interaction.isCommand()) return;
+    if (interaction.commandName === 'thestuffy') {
+        await theStuff.execute(interaction);
+    }
+}
+client.on(Events.InteractionCreate, handleInteraction);
