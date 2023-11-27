@@ -1,6 +1,6 @@
 import { Client, Events, GatewayIntentBits } from 'discord.js';
 import { config } from 'dotenv';
-import * as theStuff from '/commands/theStuff.js';
+import * as theStuff from './commands/thecommands.js';
 config();
 console.log(process.env.CLIENTID);
 console.log(process.env.SERVERID);
