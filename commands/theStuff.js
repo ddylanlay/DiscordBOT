@@ -1,5 +1,12 @@
 import { SlashCommandBuilder } from 'discord.js';
-const data = new SlashCommandBuilder()
-  .setName('TheExecute')
+
+
+export const data = new SlashCommandBuilder()
+  .setName('thestuffy')
   .setDescription('This is a demo of execute');
 
+// waits for command then outputs text
+export async function execute(interaction) {
+  await interaction.reply('Replied!');
+
+}
