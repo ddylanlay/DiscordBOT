@@ -3,7 +3,6 @@ import { config } from 'dotenv';
 import * as theStuff from './commands/thecommands.js';
 import OpenAI from 'openai';
 
-
 config();
 console.log(process.env.CLIENTID);
 console.log(process.env.SERVERID);
@@ -18,14 +17,23 @@ const client = new Client({
 // Connect to OPENAI API
 const openai = new OpenAI({
   organisation: process.env.OPENAI_ORG,
-  apiKey: process.env.OPENAI_KEY}) // This is also the default, can be omitted
+  apiKey: process.env.OPENAI_KEY}) // this is also the default, can be omitted
 
 //checks when a message is sent on discord
 client.on('messageCreate', async function(message){
     try{
+
+
         if(message.author.bot) return; // bot does not respond to itself or other bots, only users
-        console.log(message.content);
-        message.reply(`Dylan said: ${message.content}`)
+        // console.log(message.content);
+        // message.reply(`Dylan said: ${message.content}`)
+        const chatCompletion = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [{role: 'system' , content: 'DylanBOT is a friendly chatbot'}, {role: 'user', content: message.content}]
+        });
+
+        message.reply(chatCompletion.choices[0].message.content)
+        return
     } catch(error){
         console.log(error);
     }
@@ -44,7 +52,7 @@ client.once(Events.ClientReady, readyDiscord); //turns bot on [indicated by gree
 //Setup specific command to work in discord
 async function handleInteraction(interaction) {
     if (!interaction.isCommand()) return;
-    if (interaction.commandName === 'thestuffy') {
+    if (interaction.commandName === 'exit') {
         await theStuff.execute(interaction);
     }
 }
