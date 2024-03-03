@@ -1,5 +1,5 @@
 # DiscordBOT
 
-Input the discord server id
+1. Input the discord client id and server id of the server you want the bot to operate in, in the .env file
 
-Obtain the OpenAI API key and org from the OpenAI website
+2. Obtain the OpenAI API token and org from the OpenAI website and input it in the .env file.
